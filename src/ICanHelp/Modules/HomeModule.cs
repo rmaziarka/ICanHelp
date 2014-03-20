@@ -9,7 +9,6 @@ namespace ICanHelp.Modules
 {
     public class HomeModule:NancyModule
     {
-
         public HomeModule()
         {
 
