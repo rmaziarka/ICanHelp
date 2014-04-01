@@ -1,4 +1,5 @@
-﻿var Shared;
+﻿/// <reference path="../../references.ts" />
+var Shared;
 (function (Shared) {
     (function (Validators) {
         function UniqueEmail($http) {
@@ -7,10 +8,16 @@
                 require: 'ngModel',
                 link: function (scope, element, attr, ctrl) {
                     ctrl.$parsers.push(function (viewValue) {
+                        // set it to true here, otherwise it will not
+                        // clear out when previous validators fail.
                         ctrl.$setValidity('uniqueEmail', true);
                         if (ctrl.$valid) {
+                            // set it to false here, because if we need to check
+                            // the validity of the email, it's invalid until the
+                            // AJAX responds.
                             ctrl.$setValidity('checkingEmail', false);
 
+                            // now do your thing, chicken wing.
                             if (viewValue !== "" && typeof viewValue !== "undefined") {
                                 $http.get('/api/user/email/' + viewValue + '/available').success(function () {
                                     ctrl.$setValidity('uniqueEmail', true);
@@ -33,41 +40,4 @@
     })(Shared.Validators || (Shared.Validators = {}));
     var Validators = Shared.Validators;
 })(Shared || (Shared = {}));
-var IndexController = (function () {
-    function IndexController() {
-        this.heading = "Fajny nagłówek";
-    }
-    return IndexController;
-})();
-var Account;
-(function (Account) {
-    (function (Login) {
-        var LoginController = (function () {
-            function LoginController() {
-                var _this = this;
-                this.email = "a";
-                this.password = "b";
-                this.submit = function () {
-                    var k = _this.email + _this.password;
-                };
-            }
-            return LoginController;
-        })();
-        Login.LoginController = LoginController;
-    })(Account.Login || (Account.Login = {}));
-    var Login = Account.Login;
-})(Account || (Account = {}));
-angular.module("icanhelp", ["ui.bootstrap", 'ngRoute']).config(function ($routeProvider) {
-    return [
-        $routeProvider.when('/', {
-            templateUrl: 'app/home/index/index.html',
-            controller: IndexController,
-            controllerAs: 'cont'
-        }),
-        $routeProvider.when('/account/login', {
-            templateUrl: 'app/account/login/login.html',
-            controller: "loginController",
-            controllerAs: 'cont'
-        })
-    ];
-}).controller("loginController", Account.Login.LoginController).directive("uniqueEmail", ["$http", Shared.Validators.UniqueEmail]);
+//# sourceMappingURL=UniqueEmail.js.map

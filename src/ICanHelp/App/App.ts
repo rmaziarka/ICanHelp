@@ -3,7 +3,17 @@
 angular.module("icanhelp", ["ui.bootstrap", 'ngRoute'])
     .config(($routeProvider: ng.route.IRouteProvider) => [
         $routeProvider.when('/', {
-            templateUrl: 'html/home.html',
-            controller: HomeController
+            templateUrl: 'app/home/index/index.html',
+            controller: IndexController,
+            controllerAs: 'cont'
+        }),
+        $routeProvider.when('/account/login', {
+            templateUrl: 'app/account/login/login.html',
+            controller: "loginController",
+            controllerAs: 'cont'
         })
-    ]);
+
+    ])
+    .controller("loginController", Account.Login.LoginController)
+    .directive("uniqueEmail",["$http",Shared.Validators.UniqueEmail])
+;
