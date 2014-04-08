@@ -43,6 +43,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Nancy, Version=0.22.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -50,6 +53,9 @@
     </Reference>
     <Reference Include="Nancy.Authentication.Forms">
       <HintPath>..\packages\Nancy.Authentication.Forms.0.22.2\lib\net40\Nancy.Authentication.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Bootstrappers.Ninject">
+      <HintPath>..\packages\Nancy.Bootstrappers.Ninject.0.22.2\lib\net40\Nancy.Bootstrappers.Ninject.dll</HintPath>
     </Reference>
     <Reference Include="Nancy.Hosting.Aspnet, Version=0.22.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -62,17 +68,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Nancy.Viewengines.Razor.0.22.2\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.ChildKernel">
+      <HintPath>..\packages\Ninject.Extensions.ChildKernel.3.2.0.0\lib\net45-full\Ninject.Extensions.ChildKernel.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Simple.Data">
-      <HintPath>..\packages\Simple.Data.Core.0.19.0.0\lib\net40\Simple.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Simple.Data.Ado">
-      <HintPath>..\packages\Simple.Data.Ado.0.19.0.0\lib\net40\Simple.Data.Ado.dll</HintPath>
-    </Reference>
-    <Reference Include="Simple.Data.SqlServer">
-      <HintPath>..\packages\Simple.Data.SqlServer.0.19.0.0\lib\net40\Simple.Data.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="SimpleAuthentication.Core">
       <HintPath>..\packages\SimpleAuthentication.Core.0.3.12\lib\net40\SimpleAuthentication.Core.dll</HintPath>
@@ -162,6 +165,10 @@
     <ProjectReference Include="..\ICanHelp.Dto\ICanHelp.Dto.csproj">
       <Project>{17b91e16-1b8f-4e69-b4af-f7ca3fd02496}</Project>
       <Name>ICanHelp.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICanHelp.Model\ICanHelp.Model.csproj">
+      <Project>{0df2782d-c77f-42ee-a035-1f850a741ecf}</Project>
+      <Name>ICanHelp.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICanHelp.Services\ICanHelp.Services.csproj">
       <Project>{5936d48b-0cb7-4cd9-bab1-61dc900068dc}</Project>

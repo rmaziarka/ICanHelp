@@ -12,7 +12,7 @@
                             ctrl.$setValidity('checkingEmail', false);
 
                             if (viewValue !== "" && typeof viewValue !== "undefined") {
-                                $http.get('/api/user/email/' + viewValue + '/available').success(function () {
+                                $http.get('/ICanHelp/api/account/emailUnique/' + viewValue).success(function () {
                                     ctrl.$setValidity('uniqueEmail', true);
                                     ctrl.$setValidity('checkingEmail', true);
                                 }).error(function () {

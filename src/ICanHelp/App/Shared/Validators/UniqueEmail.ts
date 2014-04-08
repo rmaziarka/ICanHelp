@@ -19,7 +19,7 @@ module Shared.Validators {
 
                         // now do your thing, chicken wing.
                         if (viewValue !== "" && typeof viewValue !== "undefined") {
-                            $http.get('/api/user/email/' + viewValue + '/available')
+                            $http.get('/ICanHelp/api/account/emailUnique/' + viewValue)
                                 .success(()=> {
                                     ctrl.$setValidity('uniqueEmail', true);
                                     ctrl.$setValidity('checkingEmail', true);

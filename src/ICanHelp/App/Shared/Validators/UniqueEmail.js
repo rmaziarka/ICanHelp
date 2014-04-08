@@ -19,7 +19,7 @@ var Shared;
 
                             // now do your thing, chicken wing.
                             if (viewValue !== "" && typeof viewValue !== "undefined") {
-                                $http.get('/api/user/email/' + viewValue + '/available').success(function () {
+                                $http.get('/ICanHelp/api/account/emailUnique/' + viewValue).success(function () {
                                     ctrl.$setValidity('uniqueEmail', true);
                                     ctrl.$setValidity('checkingEmail', true);
                                 }).error(function () {
@@ -40,4 +40,4 @@ var Shared;
     })(Shared.Validators || (Shared.Validators = {}));
     var Validators = Shared.Validators;
 })(Shared || (Shared = {}));
-//# sourceMappingURL=UniqueEmail.js.map
+//# sourceMappingURL=uniqueEmail.js.map

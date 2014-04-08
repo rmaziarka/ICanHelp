@@ -1,5 +1,9 @@
 using System;
+using System.Data.Entity;
+using System.Threading;
+using System.Threading.Tasks;
 using ICanHelp.Dto.Account;
+using ICanHelp.Model;
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.ModelBinding;
@@ -9,11 +13,30 @@ namespace ICanHelp.Modules
 {
     public class AccountModule : NancyModule
     {
-        public AccountModule()
-            : base("account")
+        private DatabaseContext _context;
+
+        public AccountModule(DatabaseContext context)
+            : base("api/account")
         {
+            _context = context;
+
             Post["/login"] = Login;
+
+            Get["/emailUnique/{email}",true] = EmailUnique;
         }
+
+        private async Task<dynamic> EmailUnique(dynamic data, CancellationToken cancellationToken)
+        {
+            string email = data["email"].ToString();
+
+            var unique = await _context.Users.AllAsync(el => el.Email != email);
+
+            if (unique)
+                return null;
+
+            throw new ArgumentException("Email istnieje w bazie");
+        }
+
 
         public Response Login(dynamic data)
         {
