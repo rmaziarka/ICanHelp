@@ -10,6 +10,6 @@ namespace ICanHelp.Model.Model
     {
         public string Hash { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
     }
 }

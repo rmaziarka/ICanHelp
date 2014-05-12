@@ -50,6 +50,14 @@
     <Compile Include="Mapping\BaseMapping.cs" />
     <Compile Include="Mapping\UserSecretMapping.cs" />
     <Compile Include="Mapping\UserMapping.cs" />
+    <Compile Include="Migrations\2014\04\201404241908133_EmailUnique.cs" />
+    <Compile Include="Migrations\2014\04\201404241908133_EmailUnique.Designer.cs">
+      <DependentUpon>201404241908133_EmailUnique.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\2014\05\201405062213495_AddGuidToUser.cs" />
+    <Compile Include="Migrations\2014\05\201405062213495_AddGuidToUser.Designer.cs">
+      <DependentUpon>201405062213495_AddGuidToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\DatabaseConfiguration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\User.cs" />
@@ -61,6 +69,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\2014\04\201404241908133_EmailUnique.resx">
+      <DependentUpon>201404241908133_EmailUnique.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\2014\05\201405062213495_AddGuidToUser.resx">
+      <DependentUpon>201405062213495_AddGuidToUser.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

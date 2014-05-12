@@ -12,10 +12,12 @@ namespace ICanHelp.Model.Migrations
     {
         public DatabaseConfiguration()
         {
+            this.MigrationsNamespace = "ICanHelp.Model.Migrations._" + DateTime.Now.Year +"._"+ DateTime.Now.Month.ToString("00");
+            this.MigrationsDirectory = "Migrations\\" + DateTime.Now.Year + "\\" + DateTime.Now.Month.ToString("00");
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ICanHelp.Model.DatabaseContext context)
+        protected override void Seed(DatabaseContext context)
         {
 
             var users = new List<User>()
@@ -24,7 +26,7 @@ namespace ICanHelp.Model.Migrations
                 new User() {Email = "baran.dominika@hotmail.com"},
             };
 
-            users.ForEach(el => context.Users.AddOrUpdate(p => p.Email,el));
+            users.ForEach(el => context.Set<User>().AddOrUpdate(p => p.Email,el));
 
 
         }

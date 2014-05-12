@@ -11,5 +11,6 @@ namespace ICanHelp.Model.Model
         public string Email { get; set; }
 
         public UserSecret UserSecret { get; set; }
+        public Guid Guid { get; set; }
     }
 }

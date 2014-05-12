@@ -12,6 +12,7 @@ namespace ICanHelp.Model.Mapping
         public UserMapping()
         {
             Property(m => m.Email).IsRequired().HasMaxLength(250);
+            Property(m => m.Guid).IsRequired();
         }
     }
 }

@@ -7,6 +7,7 @@ using ICanHelp.Dto;
 using ICanHelp.Model;
 using ICanHelp.Model.Migrations;
 using Nancy;
+using Nancy.Authentication.Forms;
 using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.Ninject;
 using Nancy.Conventions;
@@ -19,6 +20,12 @@ namespace ICanHelp
 {
     public class ApplicationBootstrapper : NinjectNancyBootstrapper
     {
+
+        public ApplicationBootstrapper()
+        {
+            AppDomainAssemblyTypeScanner.AddAssembliesToScan("ICanHelp.Dto");
+        }
+
         protected override void ConfigureConventions(Nancy.Conventions.NancyConventions nancyConventions)
         {
             nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("Scripts", @"Scripts"));
@@ -27,10 +34,19 @@ namespace ICanHelp
             base.ConfigureConventions(nancyConventions);
         }
 
+
         protected override void ApplicationStartup(IKernel kernel, IPipelines pipelines)
         {
-            pipelines.OnError += (ctx, ex) => ArgumentExceptionReact(ex);
 
+            var formsAuthConfiguration = new FormsAuthenticationConfiguration()
+            {
+                RedirectUrl = "~/login",
+                UserMapper = kernel.Get<IUserMapper>(),
+                DisableRedirect = true
+            };
+            FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
+            pipelines.OnError += (ctx, ex) => ArgumentExceptionReact(ex);
+            pipelines.OnError += (ctx, ex) => ExceptionReact(ex);
             base.ApplicationStartup(kernel, pipelines);
         }
 
@@ -40,12 +56,12 @@ namespace ICanHelp
                 new MigrateDatabaseToLatestVersion<DatabaseContext, DatabaseConfiguration>());
 
             container.Bind<IAuthenticationCallbackProvider>().To<AuthenticationCallbackProvider>();
+            container.Bind<IUserMapper>().To<UserMapper>();
+
         }
 
         protected override void ConfigureRequestContainer(IKernel container, NancyContext context)
         {
-            //container here is a child container. I.e. singletons here are in request scope.
-            //IDisposables will get disposed at the end of the request when the child container does.
             container
                 .Bind<DatabaseContext>()
                 .To<DatabaseContext>()
@@ -65,6 +81,13 @@ namespace ICanHelp
             }
             return null;
 
+        }
+        private Response ExceptionReact(Exception ex)
+        {
+            return new JsonResponse(new ErrorReponseDto { Message = "Wystąpił niespodziewany błąd. Spróbuj odświeżyć stronę i spróbować ponownie." }, new DefaultJsonSerializer())
+            {
+                StatusCode = HttpStatusCode.InternalServerError
+            };
         }
     }
 }
