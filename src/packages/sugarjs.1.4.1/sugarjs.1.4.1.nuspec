@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>sugarjs</id>
+    <version>1.4.1</version>
+    <title>Sugar</title>
+    <authors>Andrew Plummer</authors>
+    <owners>Andrew Plummer</owners>
+    <projectUrl>http://sugarjs.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Sugar is a Javascript library that extends native objects with helpful methods. It is designed to be intuitive, unobtrusive, and let you do more with less code.</description>
+    <tags>sugarjs sugar js</tags>
+  </metadata>
+</package>
