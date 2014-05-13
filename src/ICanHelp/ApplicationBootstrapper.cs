@@ -1,18 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using ICanHelp.Dto;
+using ICanHelp.Model;
+using ICanHelp.Model.Migrations;
 using Nancy;
+using Nancy.Authentication.Forms;
 using Nancy.Bootstrapper;
+using Nancy.Bootstrappers.Ninject;
 using Nancy.Conventions;
 using Nancy.Responses;
+using Nancy.SimpleAuthentication;
 using Nancy.TinyIoc;
+using Ninject;
 
 namespace ICanHelp
 {
-    public class ApplicationBootstrapper : DefaultNancyBootstrapper
+    public class ApplicationBootstrapper : NinjectNancyBootstrapper
     {
+
+        public ApplicationBootstrapper()
+        {
+            AppDomainAssemblyTypeScanner.AddAssembliesToScan("ICanHelp.Dto");
+        }
+
         protected override void ConfigureConventions(Nancy.Conventions.NancyConventions nancyConventions)
         {
             nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("Scripts", @"Scripts"));
@@ -21,12 +34,39 @@ namespace ICanHelp
             base.ConfigureConventions(nancyConventions);
         }
 
-        protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
+
+        protected override void ApplicationStartup(IKernel kernel, IPipelines pipelines)
         {
+
+            var formsAuthConfiguration = new FormsAuthenticationConfiguration()
+            {
+                RedirectUrl = "~/login",
+                UserMapper = kernel.Get<IUserMapper>(),
+                DisableRedirect = true
+            };
+            FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
             pipelines.OnError += (ctx, ex) => ArgumentExceptionReact(ex);
+            pipelines.OnError += (ctx, ex) => ExceptionReact(ex);
+            base.ApplicationStartup(kernel, pipelines);
+        }
 
+        protected override void ConfigureApplicationContainer(IKernel container)
+        {
+            Database.SetInitializer(
+                new MigrateDatabaseToLatestVersion<DatabaseContext, DatabaseConfiguration>());
 
-            base.ApplicationStartup(container, pipelines);
+            container.Bind<IAuthenticationCallbackProvider>().To<AuthenticationCallbackProvider>();
+            container.Bind<IUserMapper>().To<UserMapper>();
+
+        }
+
+        protected override void ConfigureRequestContainer(IKernel container, NancyContext context)
+        {
+            container
+                .Bind<DatabaseContext>()
+                .To<DatabaseContext>()
+                .InSingletonScope()
+                .WithConstructorArgument("connectionStringName", "ICanHelp");
         }
 
 
@@ -41,6 +81,13 @@ namespace ICanHelp
             }
             return null;
 
+        }
+        private Response ExceptionReact(Exception ex)
+        {
+            return new JsonResponse(new ErrorReponseDto { Message = "Wystąpił niespodziewany błąd. Spróbuj odświeżyć stronę i spróbować ponownie." }, new DefaultJsonSerializer())
+            {
+                StatusCode = HttpStatusCode.InternalServerError
+            };
         }
     }
 }

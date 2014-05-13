@@ -1,0 +1,24 @@
+﻿<h1>Zarejestruj</h1>
+
+<form name="registerForm" novalidate>
+    
+    <div ng-show="contr.error">
+        {{contr.error}}
+    </div>
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.email.$invalid && registerForm.email.$dirty }">
+        <label class="control-label" for="email">Email</label>
+        <input type="email" name="email" class="form-control" required unique-email ng-model="contr.email">
+        <p ng-show="registerForm.email.$error.email && registerForm.email.$dirty" class="help-block">Podaj poprawny email.</p>
+        <p ng-show="registerForm.email.$error.required && registerForm.email.$dirty" class="help-block">Email musi zostać podany.</p>
+        <p ng-show="registerForm.email.$error.uniqueEmail && registerForm.email.$dirty" class="help-block">Podany email istnieje w bazie.</p>
+        <p ng-show="registerForm.email.$error.checkingEmail && registerForm.email.$dirty" class="help-block">Sprawdzanie emaila.</p>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.password.$invalid && !registerForm.password.$pristine }">
+        <label class="control-label" for="password">Hasło</label>
+        <input type="password" name="password" class="form-control" required ng-model="contr.password" ng-minlength="6">
+        <p ng-show="registerForm.password.$error.required && registerForm.password.$dirty" class="help-block">Hasło musi zostać podane.</p>
+        <p ng-show="registerForm.password.$error.minlength && registerForm.password.$dirty" class="help-block">Hasło musi mieć przynajmniej 6 znaków.</p>
+    </div>
+    <button type="button" class="btn btn-primary" ng-click="contr.submit()" ng-disabled="registerForm.$invalid">Zaloguj</button>
+</form>
