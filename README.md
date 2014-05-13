@@ -2,5 +2,4 @@ ICanHelp
 ========
 Mogę Pomóc jest projektem OpenSource'owym opisanym merytorycznie w dokumencie http://1drv.ms/1fafgmk.
 
-Od strony technologicznej będzie to aplikacja Single Page, oparta o framework NancyFx i ORM Entity Framework. Frontend jest pisany oparciu o AngularJs w TypeScript'cie i kompilowany przez Grunt do JS. 
-
+Od strony technologicznej będzie to aplikacja Single Page, oparta o framework NancyFx. Frontend jest pisany oparciu o AngularJs.
