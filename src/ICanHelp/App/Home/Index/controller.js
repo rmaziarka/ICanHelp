@@ -1,8 +1,4 @@
-﻿/// <reference path="../../references.ts" />
-var IndexController = (function () {
-    function IndexController() {
+﻿angular.module("iCanHelp")
+    .controller("home.indexController", function() {
         this.heading = "Fajny nagłówek";
-    }
-    return IndexController;
-})();
-//# sourceMappingURL=controller.js.map
+    });

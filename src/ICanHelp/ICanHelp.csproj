@@ -15,7 +15,7 @@
     <RootNamespace>ICanHelp</RootNamespace>
     <AssemblyName>ICanHelp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -105,8 +105,14 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Account\Register\controller.js" />
+    <Content Include="App\Account\service.js" />
+    <Content Include="App\Account\Login\controller.js" />
     <Content Include="App\Account\Register\register.html" />
+    <Content Include="App\app.js" />
     <Content Include="App\Home\Index\index.html" />
+    <Content Include="App\Home\Index\controller.js" />
+    <Content Include="App\Shared\Validators\uniqueEmail.js" />
     <Content Include="Content\bootstrap.cerulean.css" />
     <Content Include="Gruntfile.js" />
     <Content Include="App\Account\Login\login.html" />
@@ -121,10 +127,7 @@
     <Content Include="Scripts\angular\angular-scenario.js" />
     <Content Include="Scripts\angular\angular-touch.js" />
     <Content Include="Scripts\angular\angular.js" />
-    <Content Include="Scripts\angular\angular-ui-bootstrap-0.10.0.js" />
-    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\i18n\angular-locale_pl.js" />
-    <Content Include="Scripts\kendo\kendo.web.min.js" />
     <Content Include="Scripts\sugar\sugar-es6-patch.js" />
     <Content Include="Scripts\sugar\sugar.js" />
     <Content Include="Scripts\angular\angular-ui-bootstrap-tpls-0.10.0.js" />
@@ -154,26 +157,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="App\app.ts" />
-    <TypeScriptCompile Include="App\Account\accountService.ts" />
-    <TypeScriptCompile Include="App\Account\Register\registerController.ts" />
-    <TypeScriptCompile Include="App\Account\Login\loginController.ts" />
-    <TypeScriptCompile Include="App\Home\Index\indexController.ts" />
-    <TypeScriptCompile Include="App\references.ts" />
-    <TypeScriptCompile Include="App\Shared\Models\errorModel.ts" />
-    <TypeScriptCompile Include="App\Shared\Validators\uniqueEmail.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-resource.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-route.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-scenario.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\sugar\sugar.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -208,7 +191,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>9987</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:5000</IISUrl>
+          <IISUrl>http://localhost:10000/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -219,12 +202,12 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent Condition="'$(OS)' == 'Unix' and '$(ConfigurationName)' == 'Debug'" >
+    <PostBuildEvent Condition="'$(OS)' == 'Unix' and '$(ConfigurationName)' == 'Debug'">
 echo $(OS)
 cp "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.22.2\BuildProviders\Nancy.ViewEngines.Razor.BuildProviders.dll" "$(ProjectDir)bin\"
 cp "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.22.2\lib\net40\Nancy.ViewEngines.Razor.dll" "$(ProjectDir)bin\"
     </PostBuildEvent>
-    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT' and '$(ConfigurationName)' == 'Debug'" >
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT' and '$(ConfigurationName)' == 'Debug'">
 xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.22.2\BuildProviders\Nancy.ViewEngines.Razor.BuildProviders.dll" "$(ProjectDir)bin\"
 xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.22.2\lib\net40\Nancy.ViewEngines.Razor.dll" "$(ProjectDir)bin\"
 </PostBuildEvent>

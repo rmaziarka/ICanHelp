@@ -2,27 +2,25 @@
     'use strict';
 
     grunt.initConfig({
-        typescript: {
-            base: {
-                src: ['app/app.ts'],
-                dest: 'Scripts/app.js',
-                options: {
-                    target: 'ES5',
-                    declaration: true
-                }
-            }
-        },
 
-        uglify: {
+        concat: {
             app: {
-                files: {
-                    'Scripts/app.min.js': ['Scripts/app.js']
-                }
+                src: [
+                    'App/app.js',
+                    'App/Shared/Validator/uniqueEmail.js',
+                    'App/Account/service.js',
+                    'App/Account/Login/controller.js',
+                    'App/Account/Register/controller.js',
+                    'App/Home/Index/controller.js'
+
+                ],
+                dest: 'Scripts/app.js',
+                flatten: false,
+
             }
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-typescript');
-    grunt.registerTask('default', ['typescript', 'uglify']);
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.registerTask('default', ['concat']);
 }
