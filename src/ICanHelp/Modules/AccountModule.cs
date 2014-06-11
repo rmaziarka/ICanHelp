@@ -10,6 +10,7 @@ using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.ModelBinding;
 using Nancy.Responses.Negotiation;
+using Nancy.Security;
 using Nancy.Validation;
 
 namespace ICanHelp.Modules
@@ -47,7 +48,6 @@ namespace ICanHelp.Modules
             var register = this.BindAndValidate<RegisterDto>();
             this.CheckValidation();
             var hash = BCrypt.Net.BCrypt.HashPassword(register.Password, 12);
-
             var user = new User
             {
                 Email = register.Email,

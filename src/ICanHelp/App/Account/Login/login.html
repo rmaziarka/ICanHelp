@@ -1,12 +1,12 @@
 ﻿<h1>Zaloguj</h1>
 
 <form name="loginForm" novalidate>
-    <div ng-show="contr.error">
-        {{contr.error}}
+    <div ng-show="error">
+        {{error}}
     </div>
     <div class="form-group" ng-class="{ 'has-error' : loginForm.email.$invalid && loginForm.email.$dirty }">
         <label class="control-label" for="email">Email</label>
-        <input type="email" name="email" class="form-control" required ng-model="contr.email">
+        <input type="email" name="email" class="form-control" required ng-model="email">
         <p ng-show="loginForm.email.$error.email && loginForm.email.$dirty" class="help-block">Podaj poprawny email.</p>
         <p ng-show="loginForm.email.$error.required && loginForm.email.$dirty" class="help-block">Email musi zostać podany.</p>
     </div>
@@ -14,8 +14,8 @@
 
     <div class="form-group" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
         <label class="control-label" for="password">Hasło</label>
-        <input type="password" name="password" class="form-control" required ng-model="contr.password">
+        <input type="password" name="password" class="form-control" required ng-model="password">
         <p ng-show="loginForm.password.$error.required && loginForm.password.$dirty" class="help-block">Hasło musi zostać podane.</p>
     </div>
-    <button type="button" ng-click="contr.submit()" class="btn btn-primary" ng-disabled="loginForm.$invalid">Zaloguj</button>
+    <button type="button" ng-click="submit()" class="btn btn-primary" ng-disabled="loginForm.$invalid">Zaloguj</button>
 </form>

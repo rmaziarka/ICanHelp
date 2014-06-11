@@ -10,8 +10,7 @@ angular
         }),
         $routeProvider.when('/account/login/:email?', {
             templateUrl: 'app/account/login/login.html',
-            controller: "account.loginController",
-            controllerAs: 'contr'
+            controller: "account.loginController"
         }),
         $routeProvider.when('/account/register', {
             templateUrl: 'app/account/register/register.html',

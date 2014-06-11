@@ -1,7 +1,7 @@
 ﻿
 angular.module('iCanHelp')
-.service('account.service', ['$http', '$q'
-    , function ($http, $q) {
+.service('account.service', ['$http', '$q', '$timeout'
+    , function ($http, $q, $timeout) {
         this.$http = $http;
         this.$q = $q;
         this.register = function (email, password) {
@@ -22,18 +22,19 @@ angular.module('iCanHelp')
         };
         this.login = function (email, password) {
             var defer = $q.defer();
+            $timeout(function() {
+                var model = {
+                    email: email,
+                    password: password
+                };
 
-            var model = {
-                email: email,
-                password: password
-            };
 
-            $http.post('/api/account/login/', model).success(function (authToken) {
-                defer.resolve(authToken);
-            }).error(function (error) {
-                defer.reject(error);
+                $http.post('/api/account/login/', model).success(function(authToken) {
+                    defer.resolve(authToken);
+                }).error(function(error) {
+                    defer.reject(error);
+                });
             });
-
             return defer.promise;
         };
     }
